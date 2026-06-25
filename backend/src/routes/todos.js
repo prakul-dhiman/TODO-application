@@ -4,13 +4,11 @@ const { readTodos, writeTodos } = require('../db');
 
 const router = express.Router();
 
-// GET /api/todos — get all todos
 router.get('/', (req, res) => {
   const todos = readTodos();
   res.json(todos);
 });
 
-// GET /api/todos/:id — get single todo
 router.get('/:id', (req, res) => {
   const todos = readTodos();
   const todo = todos.find(t => t.id === req.params.id);
@@ -18,7 +16,6 @@ router.get('/:id', (req, res) => {
   res.json(todo);
 });
 
-// POST /api/todos — create todo
 router.post('/', (req, res) => {
   const { title, description, priority, dueDate } = req.body;
 
@@ -44,7 +41,6 @@ router.post('/', (req, res) => {
   res.status(201).json(newTodo);
 });
 
-// PUT /api/todos/:id — full update
 router.put('/:id', (req, res) => {
   const todos = readTodos();
   const idx = todos.findIndex(t => t.id === req.params.id);
@@ -70,7 +66,6 @@ router.put('/:id', (req, res) => {
   res.json(todos[idx]);
 });
 
-// PATCH /api/todos/:id — partial update (e.g. toggle complete)
 router.patch('/:id', (req, res) => {
   const todos = readTodos();
   const idx = todos.findIndex(t => t.id === req.params.id);
@@ -86,7 +81,6 @@ router.patch('/:id', (req, res) => {
   res.json(todos[idx]);
 });
 
-// DELETE /api/todos/:id — delete todo
 router.delete('/:id', (req, res) => {
   const todos = readTodos();
   const idx = todos.findIndex(t => t.id === req.params.id);
